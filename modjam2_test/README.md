@@ -1,4 +1,4 @@
-ModJam2 Test- fuj1n
+modjam2_test
 =======
 
-This is here for testing and therefore has nothing to do with the official ModJam2. Just testing if some concepts will work.
+This is a test folder, here I test out some stuff. (usually if something is good to use or not[maybe if it is too buggy] like DynCol Boxes).
