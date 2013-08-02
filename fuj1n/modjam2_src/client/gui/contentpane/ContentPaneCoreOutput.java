@@ -19,9 +19,12 @@ public class ContentPaneCoreOutput extends ContentPane {
 
 	@Override
 	public void addButtons(List buttonList) {
-		addButton(buttonList, 1, 192, 68, "Red", mode);
+		addButton(buttonList, 1, parent.width / 2 - 23, parent.height / 2 - 50, "Red", mode);
 		if(mode == 1){
-			buttonList.add(new GuiButton(2, 192, 100, 10, 10, "-"));
+			buttonList.add(new GuiButton(2, parent.width / 2 - 45, parent.height / 2 - 17, 10, 10, "-"));
+			buttonList.add(new GuiButton(3, parent.width / 2 + 19, parent.height / 2 - 17, 10, 10, "+"));
+			buttonList.add(new GuiButton(4, parent.width / 2 - 45, parent.height / 2 - 6, 10, 10, "-"));
+			buttonList.add(new GuiButton(5, parent.width / 2 + 19, parent.height / 2 - 6, 10, 10, "+"));
 		}
 	}
 
@@ -38,6 +41,39 @@ public class ContentPaneCoreOutput extends ContentPane {
 	@Override
 	public void drawContentBackground() {
 
+	}
+	
+	@Override
+	public void actionPerformed(GuiButton par1GuiButton){
+		switch(par1GuiButton.id){
+		case 1:
+			mode = 1;
+			break;
+		case 2:
+			if(sideMode > 0)
+				sideMode--;
+			else
+				sideMode = sides.length - 1;
+			break;
+		case 3:
+			if(sideMode + 1 < sides.length)				
+				sideMode++;
+			else
+				sideMode = 0;
+			break;
+		case 4:
+			if(timeMode > 1)
+				timeMode--;
+			else
+				timeMode = 100;
+			break;
+		case 5:
+			if(timeMode < 100)
+				timeMode++;
+			else
+				timeMode = 0;
+			break;
+		}
 	}
 
 }

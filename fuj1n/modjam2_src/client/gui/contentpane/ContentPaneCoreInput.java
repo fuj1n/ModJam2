@@ -24,10 +24,10 @@ public class ContentPaneCoreInput extends ContentPane {
 	@Override
 	public void addButtons(List buttonList) {
 		GuiButton currentButton = new GuiButtonDark(1, 165, 68, 40, 20, "Pass");
-		addButton(buttonList, 1, parent.width / 2 - 78, parent.height - 172, "Pass", mode);
-		addButton(buttonList, 2, parent.width / 2 - 38, parent.height - 172, "Card", mode);
-		addButton(buttonList, 3, parent.width / 2 + 2, parent.height - 172, "Retina", mode);
-		addButton(buttonList, 4, parent.width / 2 + 42, parent.height - 172, "Red", mode);
+		addButton(buttonList, 1, parent.width / 2 - 78, parent.height / 2 - 50, "Pass", mode);
+		addButton(buttonList, 2, parent.width / 2 - 38, parent.height / 2 - 50, "Card", mode);
+		addButton(buttonList, 3, parent.width / 2 + 2, parent.height / 2 - 50, "Retina", mode);
+		addButton(buttonList, 4, parent.width / 2 + 42, parent.height / 2 - 50, "Red", mode);
 	}
 
 	@Override
