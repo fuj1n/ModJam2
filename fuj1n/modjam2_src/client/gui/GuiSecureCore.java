@@ -1,12 +1,16 @@
 package fuj1n.modjam2_src.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import fuj1n.modjam2_src.Helper;
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 
 public class GuiSecureCore extends GuiContainer{
@@ -16,7 +20,8 @@ public class GuiSecureCore extends GuiContainer{
 	private EntityPlayer thePlayer;
 	private int x, y, z;
 	
-	public String tabName = "Output";
+	public String tabName = "Input";
+	public int currentTab = 0;
 	
 	public GuiSecureCore(EntityPlayer par1EntityPlayer, int par2, int par3, int par4) {
 		super(new ContainerDummy());
@@ -36,6 +41,24 @@ public class GuiSecureCore extends GuiContainer{
 	@Override
 	public void initGui() {
 		super.initGui();
+		List l = new ArrayList<String>();
+		l.add("Input");
+		buttonList.add(new GuiTab(0, this.width / 2 - 70, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
+		l.clear();
+		l.add("Output");
+		buttonList.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton){
+		if(par1GuiButton instanceof GuiTab){
+			GuiTab tab = (GuiTab)par1GuiButton;
+			tabName = tab.tabTitle;
+		}else{
+			switch(par1GuiButton.id){
+			
+			}
+		}
 	}
 	
 	@Override
