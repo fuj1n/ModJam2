@@ -12,22 +12,25 @@ import org.lwjgl.opengl.GL11;
 
 import fuj1n.modjam2_src.Helper;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPane;
+import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreInput;
+import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreOutput;
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 
-public class GuiSecureCore extends GuiContainer{
+public class GuiSecureCore extends GuiContainer {
 
 	private ResourceLocation background = new ResourceLocation("securemod:textures/gui/security_core.png");
-	
+
 	private EntityPlayer thePlayer;
 	private int x, y, z;
-	
+
 	private List buttons = new ArrayList();
-	
-	private ContentPane currentPane = null;
-	
+
+	private List<ContentPane> panes = new ArrayList<ContentPane>();
+	private int currentPane = 0;
+
 	public String tabName = "Input";
 	public int currentTab = 0;
-	
+
 	public GuiSecureCore(EntityPlayer par1EntityPlayer, int par2, int par3, int par4) {
 		super(new ContainerDummy());
 		this.thePlayer = par1EntityPlayer;
@@ -38,13 +41,18 @@ public class GuiSecureCore extends GuiContainer{
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int f, int i){
+	protected void drawGuiContainerForegroundLayer(int f, int i) {
 		fontRenderer.drawString("Security Core", 8, 5, 0xAAAAAA);
-		fontRenderer.drawString(tabName, ySize / 2 - fontRenderer.getStringWidth(tabName), 17, 0xAAAAAA);
+//		fontRenderer.drawString(tabName, ySize / 2 - fontRenderer.getStringWidth(tabName), 17, 0xAAAAAA);
+		this.drawCenteredString(fontRenderer, tabName, xSize / 2, 17, 0xAAAAAA);
+		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
+			this.panes.get(currentPane).drawContentForeground();
+		}
 	}
-	
+
 	@Override
 	public void initGui() {
+		//BUTTON ID 0 RESERVED FOR THE SAVE BUTTON
 		super.initGui();
 		List l = new ArrayList<String>();
 		l.add("Input");
@@ -52,31 +60,45 @@ public class GuiSecureCore extends GuiContainer{
 		l.clear();
 		l.add("Output");
 		buttons.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+		
+		panes.add(new ContentPaneCoreInput(this));
+		panes.add(new ContentPaneCoreOutput(this));
 	}
-	
+
 	@Override
-	protected void actionPerformed(GuiButton par1GuiButton){
-		if(par1GuiButton instanceof GuiTab){
-			GuiTab tab = (GuiTab)par1GuiButton;
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		if (par1GuiButton instanceof GuiTab) {
+			GuiTab tab = (GuiTab) par1GuiButton;
 			tabName = tab.tabTitle;
-		}else{
-			switch(par1GuiButton.id){
 			
+			switch (par1GuiButton.id){
+			default:
+				this.currentPane = par1GuiButton.id;
+				break;
+			}
+		} else {
+			switch (par1GuiButton.id) {
+
 			}
 		}
+		
+		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null){
+			this.panes.get(currentPane).actionPerformed(par1GuiButton);
+		}
 	}
-	
+
 	@Override
-    public void updateScreen(){
+	public void updateScreen() {
 		super.updateScreen();
 		this.buttonList.clear();
-		this.buttonList.add(buttons);
-		if(this.currentPane != null){
-			this.currentPane.addButtons(buttonList);
+		this.buttonList.addAll(buttons);
+		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
+			this.panes.get(currentPane).addButtons(buttonList);
+			this.panes.get(currentPane).updatePane();
 		}
-		
-    }
-	
+
+	}
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -84,6 +106,9 @@ public class GuiSecureCore extends GuiContainer{
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-	}
 
+		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
+			this.panes.get(currentPane).drawContentBackground();
+		}
+	}
 }
