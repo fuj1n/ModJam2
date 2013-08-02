@@ -8,7 +8,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import fuj1n.modjam2_src.block.SecureModBlocks;
+import fuj1n.modjam2_src.client.gui.GuiHandler;
 import fuj1n.modjam2_src.lib.ConfigManager;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
@@ -33,6 +35,8 @@ public class SecureMod {
 		
 		SecureModBlocks.addAllBlocks();
 		SecureModBlocks.registerAllBlocks();
+		
+		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 	}
 	
 	@EventHandler
