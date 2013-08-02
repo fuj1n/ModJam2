@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import fuj1n.modjam2_src.lib.ConfigManager;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -22,6 +23,7 @@ public class SecureMod {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event){
 		proxy.PreInit();
+		new ConfigManager(event.getSuggestedConfigurationFile()).readConfigValues();
 	}
 	
 	@EventHandler
