@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.lib.ConfigManager;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
@@ -29,6 +30,9 @@ public class SecureMod {
 	@EventHandler
 	public void Init(FMLInitializationEvent evnet){
 		proxy.Init();
+		
+		SecureModBlocks.addAllBlocks();
+		SecureModBlocks.registerAllBlocks();
 	}
 	
 	@EventHandler

@@ -35,7 +35,7 @@ public class ConfigManager {
 		return values;
 	}
 	
-	private class Values{
+	public class Values{
 		
 		public int secureCoreId = 2444;
 		
