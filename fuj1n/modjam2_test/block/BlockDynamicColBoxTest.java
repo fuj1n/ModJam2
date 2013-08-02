@@ -1,4 +1,4 @@
-package fuj1n.modjam2.test.block;
+package fuj1n.modjam2_test.block;
 
 import java.util.List;
 

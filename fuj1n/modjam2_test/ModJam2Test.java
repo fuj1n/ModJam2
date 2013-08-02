@@ -1,4 +1,4 @@
-package fuj1n.modjam2.test;
+package fuj1n.modjam2_test;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,7 +9,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import fuj1n.modjam2.test.block.BlockDynamicColBoxTest;
+import fuj1n.modjam2_test.block.BlockDynamicColBoxTest;
 
 @Mod(name="ModJam #2 Test - fuj1n", modid="fuj1n.modjam.v2.test", version="UNDEFINED")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
