@@ -1,5 +1,7 @@
 package fuj1n.modjam2_src.client.gui.contentpane;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -72,6 +74,17 @@ public class ContentPaneCoreOutput extends ContentPane {
 				timeMode++;
 			else
 				timeMode = 0;
+			break;
+		}
+	}
+	
+	@Override
+	public void addDataToPacket(DataOutputStream outputStream) throws IOException{
+		outputStream.writeInt(mode);
+		switch(mode){
+		case 1:
+			outputStream.writeInt(sideMode);
+			outputStream.writeInt(timeMode);
 			break;
 		}
 	}
