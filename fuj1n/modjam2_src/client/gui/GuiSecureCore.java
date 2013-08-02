@@ -60,6 +60,7 @@ public class GuiSecureCore extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
+		buttons.clear();
 		buttons.add(new GuiButtonDark(0, this.width / 2 - 50, this.height / 2 + 80, 100, 20, "Done"));
 		List l = new ArrayList<String>();
 		l.add("Input");

@@ -2,6 +2,7 @@ package fuj1n.modjam2_src.client.gui.contentpane;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -20,7 +21,7 @@ public class ContentPaneCoreOutput extends ContentPane {
 	public void addButtons(List buttonList) {
 		addButton(buttonList, 1, 192, 68, "Red", mode);
 		if(mode == 1){
-			
+			buttonList.add(new GuiButton(2, 192, 100, 10, 10, "-"));
 		}
 	}
 
