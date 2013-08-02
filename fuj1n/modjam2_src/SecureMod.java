@@ -12,9 +12,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.client.gui.GuiHandler;
 import fuj1n.modjam2_src.lib.ConfigManager;
+import fuj1n.modjam2_src.network.PacketHandler;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"fuj1nSecure"}, packetHandler=PacketHandler.class)
 public class SecureMod {
 
 	@SidedProxy(clientSide="fuj1n.modjam2_src.client.ClientProxySecureMod", serverSide="fuj1n.modjam2_src.CommonProxySecureMod")
