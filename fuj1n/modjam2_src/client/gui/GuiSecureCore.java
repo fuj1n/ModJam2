@@ -1,14 +1,22 @@
 package fuj1n.modjam2_src.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.Side;
 
 import fuj1n.modjam2_src.Helper;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPane;
@@ -42,8 +50,7 @@ public class GuiSecureCore extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int f, int i) {
-		fontRenderer.drawString("Security Core", 8, 5, 0xAAAAAA);
-//		fontRenderer.drawString(tabName, ySize / 2 - fontRenderer.getStringWidth(tabName), 17, 0xAAAAAA);
+		fontRenderer.drawString("Security Core           Setup", 15, 5, 0xAAAAAA);
 		this.drawCenteredString(fontRenderer, tabName, xSize / 2, 17, 0xAAAAAA);
 		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
 			this.panes.get(currentPane).drawContentForeground();
@@ -52,15 +59,15 @@ public class GuiSecureCore extends GuiContainer {
 
 	@Override
 	public void initGui() {
-		//BUTTON ID 0 RESERVED FOR THE SAVE BUTTON (GuiTabs excepted)
 		super.initGui();
+		buttons.add(new GuiButtonDark(0, this.width / 2 - 50, this.height / 2 + 80, 100, 20, "Done"));
 		List l = new ArrayList<String>();
 		l.add("Input");
 		buttons.add(new GuiTab(0, this.width / 2 - 70, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
 		l.clear();
 		l.add("Output");
 		buttons.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
-		
+
 		panes.add(new ContentPaneCoreInput(this));
 		panes.add(new ContentPaneCoreOutput(this));
 	}
@@ -70,23 +77,52 @@ public class GuiSecureCore extends GuiContainer {
 		if (par1GuiButton instanceof GuiTab) {
 			GuiTab tab = (GuiTab) par1GuiButton;
 			tabName = tab.tabTitle;
-			
-			switch (par1GuiButton.id){
+
+			switch (par1GuiButton.id) {
 			default:
 				this.currentPane = par1GuiButton.id;
 				break;
 			}
 		} else {
 			switch (par1GuiButton.id) {
-
+			case 0:
+				dispatchExitPacket();
+				
+				this.mc.displayGuiScreen((GuiScreen) null);
+				this.mc.setIngameFocus();
+				return;
 			}
 		}
-		
-		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null){
+
+		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
 			this.panes.get(currentPane).actionPerformed(par1GuiButton);
 		}
 	}
 
+	public void dispatchExitPacket(){
+		int packetId = 0;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(packetId);
+			outputStream.writeInt(x);
+			outputStream.writeInt(y);
+			outputStream.writeInt(z);
+			panes.get(0).addDataToPacket(outputStream);
+			panes.get(1).addDataToPacket(outputStream);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "fuj1nSecure";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			PacketDispatcher.sendPacketToServer(packet);
+		}
+	}
+	
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
@@ -109,6 +145,22 @@ public class GuiSecureCore extends GuiContainer {
 
 		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
 			this.panes.get(currentPane).drawContentBackground();
+		}
+	}
+
+	@Override
+	protected void keyTyped(char par1, int par2) {
+		if (par2 == 1) {
+			return;
+		}
+
+		if (par2 == 1 || par2 == this.mc.gameSettings.keyBindInventory.keyCode) {
+			return;
+		}
+		super.keyTyped(par1, par2);
+		
+		if(this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null){
+			this.panes.get(currentPane).keyTyped(par1, par2);
 		}
 	}
 }
