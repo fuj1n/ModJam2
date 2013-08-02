@@ -68,6 +68,7 @@ public class GuiTab extends GuiButton {
 	}
 
 	protected void drawHoveringText(List par1List, int par2, int par3, FontRenderer font) {
+		float zl = this.zLevel;
 		if (!par1List.isEmpty()) {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			RenderHelper.disableStandardItemLighting();
@@ -127,7 +128,7 @@ public class GuiTab extends GuiButton {
 				j1 += 10;
 			}
 
-            this.zLevel = 0.0F;
+            this.zLevel = zl;
             itemRenderer.zLevel = 0.0F;
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);

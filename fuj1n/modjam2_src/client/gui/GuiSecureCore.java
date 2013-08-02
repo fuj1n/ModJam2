@@ -52,7 +52,7 @@ public class GuiSecureCore extends GuiContainer {
 
 	@Override
 	public void initGui() {
-		//BUTTON ID 0 RESERVED FOR THE SAVE BUTTON
+		//BUTTON ID 0 RESERVED FOR THE SAVE BUTTON (GuiTabs excepted)
 		super.initGui();
 		List l = new ArrayList<String>();
 		l.add("Input");
