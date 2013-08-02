@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import fuj1n.modjam2_src.Helper;
+import fuj1n.modjam2_src.client.gui.contentpane.ContentPane;
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 
 public class GuiSecureCore extends GuiContainer{
@@ -19,6 +20,10 @@ public class GuiSecureCore extends GuiContainer{
 	
 	private EntityPlayer thePlayer;
 	private int x, y, z;
+	
+	private List buttons = new ArrayList();
+	
+	private ContentPane currentPane = null;
 	
 	public String tabName = "Input";
 	public int currentTab = 0;
@@ -43,10 +48,10 @@ public class GuiSecureCore extends GuiContainer{
 		super.initGui();
 		List l = new ArrayList<String>();
 		l.add("Input");
-		buttonList.add(new GuiTab(0, this.width / 2 - 70, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
+		buttons.add(new GuiTab(0, this.width / 2 - 70, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
 		l.clear();
 		l.add("Output");
-		buttonList.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+		buttons.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
 	}
 	
 	@Override
@@ -60,6 +65,17 @@ public class GuiSecureCore extends GuiContainer{
 			}
 		}
 	}
+	
+	@Override
+    public void updateScreen(){
+		super.updateScreen();
+		this.buttonList.clear();
+		this.buttonList.add(buttons);
+		if(this.currentPane != null){
+			this.currentPane.addButtons(buttonList);
+		}
+		
+    }
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
