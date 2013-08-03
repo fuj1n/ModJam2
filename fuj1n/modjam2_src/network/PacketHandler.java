@@ -30,7 +30,14 @@ public class PacketHandler implements IPacketHandler{
 	}
 	
 	public void handleSecureCoreInitPacket(DataInputStream inputStream, Player player){
-		
+		try {
+			int x = inputStream.readInt();
+			int y = inputStream.readInt();
+			int z = inputStream.readInt();
+			int mode = inputStream.readInt();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
