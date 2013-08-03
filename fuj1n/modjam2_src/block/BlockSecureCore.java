@@ -11,46 +11,71 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import fuj1n.modjam2_src.SecureMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler.GuiIdReference;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
-public class BlockSecureCore extends BlockContainer {
+public class BlockSecureCore extends BlockContainer implements ISecure {
 
 	private Icon[] icons = new Icon[3];
 
 	public BlockSecureCore(int par1) {
-		super(par1, Material.tnt);
+		super(par1, Material.rock);
 		this.setStepSound(this.soundMetalFootstep);
 	}
 
 	@Override
+	public boolean isOpaqueCube() {
+		return true;
+		//return false;
+	}
+
+	@Override
+	public boolean canProvidePower() {
+		return true;
+	}
+
+	@Override
+	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
+		TileEntitySecurityCore te = (TileEntitySecurityCore)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
+		System.out.println(par5);
+		return te.redstoneSignals[par5];
+//		return 15;
+	}
+
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+		return true;
+	}
+
+	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
-		
-		switch(te.inputMode){
+		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
+
+		switch (te.inputMode) {
 		case 1:
-			
+			par5EntityPlayer.openGui(SecureMod.instance, GuiIdReference.GUI_SECURECOREPASS, par1World, par2, par3, par4);
 			break;
 		case 2:
-			if(par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityPass.itemID && par5EntityPlayer.getHeldItem().getTagCompound() != null){
-				if(Integer.toString(par5EntityPlayer.getHeldItem().getTagCompound().getInteger("cardID")).equals(te.passcode)){					
+			if (par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityPass.itemID && par5EntityPlayer.getHeldItem().getTagCompound() != null) {
+				if (Integer.toString(par5EntityPlayer.getHeldItem().getTagCompound().getInteger("cardID")).equals(te.passcode)) {
 					te.setOutput();
 				}
 				return true;
 			}
 			break;
 		case 3:
-			if(par5EntityPlayer.username.equals(te.playerName)){
+			if (par5EntityPlayer.username.equals(te.playerName)) {
 				te.setOutput();
 				return true;
 			}
 			break;
 		case 4:
-			break;
+			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -73,9 +98,9 @@ public class BlockSecureCore extends BlockContainer {
 		if (l == 3) {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
 		}
-		
-		if(par5EntityLivingBase instanceof EntityPlayer){
-			EntityPlayer player = (EntityPlayer)par5EntityLivingBase;
+
+		if (par5EntityLivingBase instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) par5EntityLivingBase;
 			player.openGui(SecureMod.instance, GuiIdReference.GUI_SECURECORE, par1World, par2, par3, par4);
 		}
 	}
@@ -85,28 +110,45 @@ public class BlockSecureCore extends BlockContainer {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		return par5 == 1 ? this.icons[1] : (par5 == 0 ? this.icons[1] : (par5 != meta ? this.icons[0] : this.icons[2]));
 	}
-	
+
 	@Override
-	public Icon getIcon(int par1, int par2){
-		if(par1 == 0 || par1 == 1){
+	public Icon getIcon(int par1, int par2) {
+		if (par1 == 0 || par1 == 1) {
 			return icons[1];
-		}else if(par1 == 4){
+		} else if (par1 == 4) {
 			return icons[2];
 		}
-			
+
 		return icons[0];
 	}
 
+	@Override
+    public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
+		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
+		if(te.inputMode == 4 && par1World.isBlockIndirectlyGettingPowered(par2, par3, par4)){
+			te.setOutput();
+		}
+	}
+	
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons[0] = par1IconRegister.registerIcon("securemod:secure_block_base");
 		icons[1] = par1IconRegister.registerIcon("securemod:secure_block_axisY");
 		icons[2] = par1IconRegister.registerIcon("securemod:secure_core_front");
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileEntitySecurityCore();
+	}
+
+	@Override
+	public boolean canBreak(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
+		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
+		if(par5EntityPlayer.username.equals(te.playerName)){
+			return true;
+		}
+		return false;
 	}
 
 }

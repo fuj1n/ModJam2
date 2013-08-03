@@ -35,7 +35,7 @@ public class ContentPaneCoreOutput extends ContentPane {
 		switch(mode){
 		case 1:
 			mc.fontRenderer.drawString("Emit a redstone signal", 25, 80, 0xAAAAAA);
-			drawCenteredString(mc.fontRenderer, "Side: " + sides[sideMode].toString(), 80, 90, 0xAAAAAA);
+			drawCenteredString(mc.fontRenderer, "Side: " + sides[sideMode].getOpposite().toString(), 80, 90, 0xAAAAAA);
 			drawCenteredString(mc.fontRenderer, "Time: " + timeMode + "s", 80, 100, 0xAAAAAA);
 		}
 	}

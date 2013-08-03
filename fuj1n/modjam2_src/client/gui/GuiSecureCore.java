@@ -89,8 +89,7 @@ public class GuiSecureCore extends GuiContainer {
 			case 0:
 				dispatchExitPacket();
 				
-				this.mc.displayGuiScreen((GuiScreen) null);
-				this.mc.setIngameFocus();
+				this.thePlayer.closeScreen();
 				return;
 			}
 		}

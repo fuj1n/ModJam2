@@ -21,12 +21,15 @@ public class GuiHandler implements IGuiHandler{
 		switch(ID){
 		case GuiIdReference.GUI_SECURECORE:
 			return new GuiSecureCore(player, x, y, z);
+		case GuiIdReference.GUI_SECURECOREPASS:
+			return new GuiSecureCorePasscode(player, x, y, z);
 		}
 		return null;
 	}
 	
 	public static class GuiIdReference{
 		public static final int GUI_SECURECORE  = 0;
+		public static final int GUI_SECURECOREPASS = 1;
 	}
 
 }
