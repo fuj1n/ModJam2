@@ -15,6 +15,7 @@ import fuj1n.modjam2_src.client.gui.GuiHandler;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.network.PacketHandler;
+import fuj1n.modjam2_src.recipe.SecureModRecipes;
 import fuj1n.modjam2_src.tileentity.TileEntitySecureBlock;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
@@ -47,6 +48,8 @@ public class SecureMod {
 //		MinecraftForge.EVENT_BUS.register(new PriorityManager());
 		
 		SecureModItems.addItems();
+		
+		SecureModRecipes.addAllRecipes();
 		
 		registerAllTileEntities();
 	}
