@@ -51,7 +51,7 @@ public class ItemSecurityPass extends Item {
 			if(GuiScreen.isCtrlKeyDown()){
 				par3List.add("Dispose in fire");
 			}else{
-				par3List.add("Hold control for disposal instructions")
+				par3List.add("Hold control for disposal instructions");
 			}
 		}
 	}
