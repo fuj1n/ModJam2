@@ -25,6 +25,7 @@ public class ConfigManager {
 	public void readConfigValues(){
 		config.load();
 		values.secureCoreId = config.getBlock("Secure Core Id", values.secureCoreId).getInt();
+		values.securityPassId = config.getItem("Security Pass Id", values.securityPassId).getInt();
 		
 		if(config.hasChanged()){
 			config.save();
@@ -38,6 +39,7 @@ public class ConfigManager {
 	public class Values{
 		
 		public int secureCoreId = 2444;
+		public int securityPassId = 16000;
 		
 	}
 	

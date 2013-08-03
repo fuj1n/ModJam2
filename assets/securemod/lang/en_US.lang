@@ -4,3 +4,5 @@ language.region=US
 language.code=en_US
 
 tile.securityCore.name=Security Core
+
+item.securityPass.name=Security Pass

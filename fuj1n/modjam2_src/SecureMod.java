@@ -9,10 +9,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.client.gui.GuiHandler;
+import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.network.PacketHandler;
+import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"fuj1nSecure"}, packetHandler=PacketHandler.class)
@@ -38,6 +41,14 @@ public class SecureMod {
 		SecureModBlocks.registerAllBlocks();
 		
 		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+		
+		SecureModItems.addItems();
+		
+		registerAllTileEntities();
+	}
+	
+	public void registerAllTileEntities(){
+		GameRegistry.registerTileEntity(TileEntitySecurityCore.class, "fuj1n.securemod.tileenitysecuritycore");
 	}
 	
 	@EventHandler

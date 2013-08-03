@@ -53,7 +53,8 @@ public class ContentPaneCoreInput extends ContentPane {
 			mc.fontRenderer.drawString("this device.", 25, 80 + mc.fontRenderer.FONT_HEIGHT, 0xAAAAAA);
 			break;
 		case 4:
-			mc.fontRenderer.drawString("Redstone activated", 25, 80, 0xAAAAAA);
+			mc.fontRenderer.drawString("Better red than dead", 25, 80, 0xAAAAAA);
+			mc.fontRenderer.drawString("Redstone activated", 25, 80 + mc.fontRenderer.FONT_HEIGHT, 0xAAAAAA);
 		}
 	}
 
