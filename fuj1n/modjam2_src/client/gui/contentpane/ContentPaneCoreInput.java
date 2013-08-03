@@ -99,7 +99,7 @@ public class ContentPaneCoreInput extends ContentPane {
 		outputStream.writeInt(mode);
 		switch(mode){
 		case 1:
-			outputStream.writeChars(passcode.getText());
+			outputStream.writeUTF(passcode.getText());
 			break;
 		case 2:
 			break;
