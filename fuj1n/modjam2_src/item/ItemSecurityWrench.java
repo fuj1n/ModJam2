@@ -12,6 +12,7 @@ public class ItemSecurityWrench extends Item{
 
 	public ItemSecurityWrench(int par1) {
 		super(par1);
+		setMaxStackSize(1);
 	}
 	
 	@Override

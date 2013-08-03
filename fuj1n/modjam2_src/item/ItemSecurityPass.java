@@ -45,7 +45,13 @@ public class ItemSecurityPass extends Item {
 			if(GuiScreen.isShiftKeyDown()){
 				par3List.add(Integer.toString(par1ItemStack.getTagCompound().getInteger("cardID")));
 			}else{
-				par3List.add("Hold shift for more information...");
+				par3List.add("Hold shift for more information");
+			}
+			
+			if(GuiScreen.isCtrlKeyDown()){
+				par3List.add("Dispose in fire");
+			}else{
+				par3List.add("Hold control for disposal instructions")
 			}
 		}
 	}
