@@ -55,6 +55,6 @@ public class TileEntitySecurityCore extends TileEntity {
 	}
 	
 	public void setOutput(){
-		
+		System.out.println("test");
 	}
 }

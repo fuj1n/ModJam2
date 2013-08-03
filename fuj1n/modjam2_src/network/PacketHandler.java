@@ -13,6 +13,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
@@ -68,8 +69,8 @@ public class PacketHandler implements IPacketHandler{
 	            double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
 	            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
 	            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-	            EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, item);
-	            entityitem.delayBeforeCanPickup = 10;
+	            EntityItem entityitem = new EntityItem(world, player.posX + d0, player.posY + d1, player.posZ + d2, item);
+	            entityitem.delayBeforeCanPickup = 0;
 	            world.spawnEntityInWorld(entityitem);
 				break;
 			case 3:
@@ -90,6 +91,8 @@ public class PacketHandler implements IPacketHandler{
 			te.inputMode = mode;
 			te.outputMode = outputMode;
 			te.playerName = player.username;
+			
+			PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), world.provider.dimensionId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
