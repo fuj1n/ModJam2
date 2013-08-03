@@ -1,5 +1,6 @@
 package fuj1n.modjam2_src.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import fuj1n.modjam2_src.inventory.ContainerDummy;
+import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 public class GuiSecureCorePasscode extends GuiContainer{
 
@@ -17,19 +19,27 @@ public class GuiSecureCorePasscode extends GuiContainer{
 	
 	String pass = "";
 	
+	EntityPlayer thePlayer;
+	int x, y, z;
+	
 	public GuiSecureCorePasscode(EntityPlayer player, int x, int y, int z) {
 		super(new ContainerDummy());
+		this.thePlayer = player;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		ySize = 68;
 	}
 
 	@Override
 	public void initGui(){
 		super.initGui();
-		passfield = new GuiTextField(fontRenderer, xSize / 2, ySize / 2, 50, 10);
+		passfield = new GuiTextField(fontRenderer, width / 2 - 170, height / 2 - 100, 100, 10);
 		passfield.setMaxStringLength(15);
 		passfield.setFocused(true);
 		passfield.setCanLoseFocus(false);
 		passfield.setText(pass);
+		buttonList.add(new GuiButton(0, width / 2 - 45, height / 2 + 5, 100, 20, "Done"));
 	}
 	
 	@Override
@@ -58,6 +68,19 @@ public class GuiSecureCorePasscode extends GuiContainer{
 	public void updateScreen(){
 		super.updateScreen();
 		this.pass = passfield.getText();
+	}
+	
+	@Override
+	public void actionPerformed(GuiButton par1GuiButton){
+		switch(par1GuiButton.id){
+		case 0:
+			TileEntitySecurityCore te = (TileEntitySecurityCore)thePlayer.worldObj.getBlockTileEntity(x, y, z);
+			if(this.passfield.getText().equals(te.passcode)){
+				te.setOutput();
+				
+			}
+			break;
+		}
 	}
 
 }

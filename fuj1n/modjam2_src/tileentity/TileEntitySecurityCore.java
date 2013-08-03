@@ -59,6 +59,7 @@ public class TileEntitySecurityCore extends TileEntity {
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		readFromNBT(pkt.customParam1);
+		updateSurroundingBlocks();
 	}
 	
 	public void setOutput(){

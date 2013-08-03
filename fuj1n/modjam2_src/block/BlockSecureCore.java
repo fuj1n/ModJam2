@@ -15,6 +15,7 @@ import net.minecraftforge.common.ForgeDirection;
 import fuj1n.modjam2_src.SecureMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler.GuiIdReference;
 import fuj1n.modjam2_src.item.SecureModItems;
+import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 public class BlockSecureCore extends BlockContainer implements ISecure {
@@ -52,12 +53,16 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		if(par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == ConfigManager.instance.getValues().securityWrenchId){
+			return false;
+		}
+		
 		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
 
 		switch (te.inputMode) {
 		case 1:
 			par5EntityPlayer.openGui(SecureMod.instance, GuiIdReference.GUI_SECURECOREPASS, par1World, par2, par3, par4);
-			break;
+			return true;
 		case 2:
 			if (par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityPass.itemID && par5EntityPlayer.getHeldItem().getTagCompound() != null) {
 				if (Integer.toString(par5EntityPlayer.getHeldItem().getTagCompound().getInteger("cardID")).equals(te.passcode)) {
@@ -73,7 +78,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 			}
 			break;
 		case 4:
-			return true;
+			break;
 		}
 
 		return false;
