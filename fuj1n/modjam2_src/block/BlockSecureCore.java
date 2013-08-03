@@ -162,4 +162,9 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 		return false;
 	}
 	
+	@Override
+	public int getMobilityFlag(){
+		return 2;
+	}
+	
 }

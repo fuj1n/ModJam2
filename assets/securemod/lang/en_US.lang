@@ -4,6 +4,7 @@ language.region=US
 language.code=en_US
 
 tile.securityCore.name=Security Core
+tile.secureBlock.name=Secure Block
 
-item.securityPass.name=Security Pass
+item.securityPass.name=Security Card
 item.securityWrench.name=Security Wrench

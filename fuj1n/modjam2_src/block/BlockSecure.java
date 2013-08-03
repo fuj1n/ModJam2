@@ -61,4 +61,9 @@ public class BlockSecure extends BlockContainer implements ISecure {
 	public boolean canEntityDestroy(World world, int x, int y, int z, Entity entity) {
 		return false;
 	}
+	
+	@Override
+	public int getMobilityFlag(){
+		return 2;
+	}
 }
