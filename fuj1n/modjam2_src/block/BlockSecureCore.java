@@ -13,6 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import fuj1n.modjam2_src.SecureMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler.GuiIdReference;
+import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 public class BlockSecureCore extends BlockContainer {
@@ -26,6 +27,26 @@ public class BlockSecureCore extends BlockContainer {
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
+		
+		switch(te.inputMode){
+		case 1:
+			
+			break;
+		case 2:
+			if(par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityPass.itemID && par5EntityPlayer.getHeldItem().getTagCompound() != null){
+				te.setOutput();
+			}
+			break;
+		case 3:
+			if(par5EntityPlayer.username.equals(te.playerName)){
+				te.setOutput();
+			}
+			break;
+		case 4:
+			break;
+		}
+		
 		return false;
 	}
 

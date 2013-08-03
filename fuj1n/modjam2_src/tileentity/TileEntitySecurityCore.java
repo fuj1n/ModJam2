@@ -53,4 +53,8 @@ public class TileEntitySecurityCore extends TileEntity {
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		readFromNBT(pkt.customParam1);
 	}
+	
+	public void setOutput(){
+		
+	}
 }
