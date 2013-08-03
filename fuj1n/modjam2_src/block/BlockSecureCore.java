@@ -3,6 +3,7 @@ package fuj1n.modjam2_src.block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	private Icon[] icons = new Icon[3];
 
 	public BlockSecureCore(int par1) {
-		super(par1, Material.rock);
+		super(par1, Material.tnt);
 		this.setStepSound(this.soundMetalFootstep);
 	}
 
@@ -41,9 +42,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
-		System.out.println(par5);
 		return te.redstoneSignals[par5];
-//		return 15;
 	}
 
 	@Override
@@ -106,6 +105,8 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 
 		if (par5EntityLivingBase instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par5EntityLivingBase;
+			TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
+			te.playerName = player.username;
 			player.openGui(SecureMod.instance, GuiIdReference.GUI_SECURECORE, par1World, par2, par3, par4);
 		}
 	}
@@ -150,10 +151,15 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public boolean canBreak(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
-		if(par5EntityPlayer.username.equals(te.playerName)){
+		if(par5EntityPlayer.username.equals(te.playerName) || te.playerName == null){
 			return true;
 		}
 		return false;
 	}
 
+	@Override
+	public boolean canEntityDestroy(World world, int x, int y, int z, Entity entity) {
+		return false;
+	}
+	
 }

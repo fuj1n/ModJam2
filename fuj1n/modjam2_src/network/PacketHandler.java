@@ -40,6 +40,14 @@ public class PacketHandler implements IPacketHandler{
 			case 0:
 				handleSecureCoreInitPacket(inputStream, entityPlayer, world);
 				break;
+			case 1:
+				try {
+					TileEntitySecurityCore te = (TileEntitySecurityCore)world.getBlockTileEntity(inputStream.readInt(), inputStream.readInt(), inputStream.readInt());
+					te.setOutput();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
 			}
 		}
 	}

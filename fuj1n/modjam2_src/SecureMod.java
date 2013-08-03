@@ -1,6 +1,5 @@
 package fuj1n.modjam2_src;
 
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -13,10 +12,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.client.gui.GuiHandler;
-import fuj1n.modjam2_src.event.PriorityManager;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.network.PacketHandler;
+import fuj1n.modjam2_src.tileentity.TileEntitySecureBlock;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 @Mod(modid = "SecureMod", name = "Secure Mod", version = "v0")
@@ -54,6 +53,7 @@ public class SecureMod {
 	
 	public void registerAllTileEntities(){
 		GameRegistry.registerTileEntity(TileEntitySecurityCore.class, "fuj1n.securemod.tileenitysecuritycore");
+		GameRegistry.registerTileEntity(TileEntitySecureBlock.class, "fuj1n.securemod.tileenitysecureblock");
 	}
 	
 	@EventHandler

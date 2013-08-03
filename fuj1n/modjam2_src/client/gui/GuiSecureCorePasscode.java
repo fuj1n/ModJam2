@@ -1,12 +1,21 @@
 package fuj1n.modjam2_src.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.Side;
 
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
@@ -77,9 +86,32 @@ public class GuiSecureCorePasscode extends GuiContainer{
 			TileEntitySecurityCore te = (TileEntitySecurityCore)thePlayer.worldObj.getBlockTileEntity(x, y, z);
 			if(this.passfield.getText().equals(te.passcode)){
 				te.setOutput();
-				
+				dispatchOpenPacket();
 			}
+			thePlayer.closeScreen();
 			break;
+		}
+	}
+	
+	public void dispatchOpenPacket(){
+		int packetId = 1;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(packetId);
+			outputStream.writeInt(x);
+			outputStream.writeInt(y);
+			outputStream.writeInt(z);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "fuj1nSecure";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			PacketDispatcher.sendPacketToServer(packet);
 		}
 	}
 
