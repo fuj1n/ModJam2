@@ -1,11 +1,13 @@
 package fuj1n.modjam2_src.tileentity;
 
-import fuj1n.modjam2_src.block.SecureModBlocks;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import fuj1n.modjam2_src.block.SecureModBlocks;
+import fuj1n.modjam2_src.damage.DamageSourceElectricity;
 
 public class TileEntitySecurityCore extends TileEntity {
 
@@ -15,10 +17,19 @@ public class TileEntitySecurityCore extends TileEntity {
 	public int outputMode = 0;
 	public int outSide = 0;
 	public int outTime = 0;
+	public int retMode = 0;
+	public int retSide = 0;
+	public int retTime = 0;
 	
-	public int localTime = 0;
+	public int localTimeOut = 0;
+	public int localTimeRet = 0;
 	
-	public int[] redstoneSignals = new int[6];
+	EntityPlayer attackingPlayer = null;
+	int timesAttackedPlayer = 0;
+	int ticksAttackedPlayer = 0;
+	
+	public int[] redstoneSignalsOut = new int[6];
+	public int[] redstoneSignalsRet = new int[6];
 	
 	@Override
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
@@ -29,7 +40,17 @@ public class TileEntitySecurityCore extends TileEntity {
 		outputMode = par1NBTTagCompound.getInteger("outMode");
 		outSide = par1NBTTagCompound.getInteger("outSide");
 		outTime = par1NBTTagCompound.getInteger("outTime");
-		localTime = par1NBTTagCompound.getInteger("localTime");
+		localTimeOut = par1NBTTagCompound.getInteger("localTime");
+		retMode = par1NBTTagCompound.getInteger("retMode");
+		retSide = par1NBTTagCompound.getInteger("retSide");
+		retTime = par1NBTTagCompound.getInteger("retTime");
+		localTimeRet = par1NBTTagCompound.getInteger("localTimeRet");
+		for(int i = 0; i < redstoneSignalsOut.length; i++){
+			redstoneSignalsOut[i] = par1NBTTagCompound.getInteger("redstoneOut" + i);
+		}
+		for(int i = 0; i < redstoneSignalsRet.length; i++){
+			redstoneSignalsRet[i] = par1NBTTagCompound.getInteger("redstoneRet" + i);
+		}
 	}
 
 	@Override
@@ -45,7 +66,17 @@ public class TileEntitySecurityCore extends TileEntity {
 		par1NBTTagCompound.setInteger("outMode", outputMode);
 		par1NBTTagCompound.setInteger("outSide", outSide);
 		par1NBTTagCompound.setInteger("outTime", outTime);
-		par1NBTTagCompound.setInteger("localTime", localTime);
+		par1NBTTagCompound.setInteger("localTime", localTimeOut);
+		par1NBTTagCompound.setInteger("retMode", retMode);
+		par1NBTTagCompound.setInteger("retSide", retSide);
+		par1NBTTagCompound.setInteger("retTime", retTime);
+		par1NBTTagCompound.setInteger("localTimeRet", localTimeRet);
+		for(int i = 0; i < redstoneSignalsOut.length; i++){
+			par1NBTTagCompound.setInteger("redstoneOut" + i, redstoneSignalsOut[i]);
+		}
+		for(int i = 0; i < redstoneSignalsRet.length; i++){
+			par1NBTTagCompound.setInteger("redstoneRet" + i, redstoneSignalsRet[i]);
+		}
 	}
 
 	@Override
@@ -65,28 +96,75 @@ public class TileEntitySecurityCore extends TileEntity {
 	public void setOutput(){
 		switch(outputMode){
 		case 1:
-			if(outSide < redstoneSignals.length){
-				redstoneSignals[outSide] = 15;
-				localTime = outTime * (20 / 2);
+			if(outSide < redstoneSignalsOut.length){
+				redstoneSignalsOut[outSide] = 15;
+				localTimeOut = outTime * (20 / 2);
 			}
 			break;
 		}
 		updateSurroundingBlocks();
 	}
 	
+	public void setRetaliate(EntityPlayer par1EntityPlayer){
+		switch(retMode){
+		case 1:
+			break;
+		case 2:
+			attackingPlayer = par1EntityPlayer;
+			timesAttackedPlayer = 0;
+			ticksAttackedPlayer = 5;
+			break;
+		case 3:
+			if(retSide < redstoneSignalsRet.length){
+				redstoneSignalsRet[retSide] = 15;
+				localTimeRet = retTime * (20 / 2);
+			}
+			break;
+		}
+	}
+	
 	@Override
 	public void updateEntity(){
 		//System.out.println(redstoneSignals[outSide]);
-		if(localTime > 0){
-			localTime--;
-			if(localTime == 0){
+		if(localTimeOut > 0){
+			localTimeOut--;
+			if(localTimeOut == 0){
 				switch(outputMode){
 				case 1:
-					if(outSide < redstoneSignals.length){
-						redstoneSignals[outSide] = 0;
+					if(outSide < redstoneSignalsOut.length){
+						redstoneSignalsOut[outSide] = 0;
 					}
 				}
 				updateSurroundingBlocks();
+			}
+		}
+		
+		if(localTimeRet > 0){
+			localTimeRet--;
+			if(localTimeRet == 0){
+				switch(retMode){
+				case 3:
+					if(retSide < redstoneSignalsRet.length){
+						redstoneSignalsRet[retSide] = 0;
+					}
+				}
+				updateSurroundingBlocks();
+			}
+		}
+		
+		if(attackingPlayer != null){
+			if(ticksAttackedPlayer >= 5){
+				ticksAttackedPlayer = 0;
+				if(timesAttackedPlayer < 10){
+					timesAttackedPlayer++;
+					attackingPlayer.attackEntityFrom(new DamageSourceElectricity(), 2F);
+				}else{
+					ticksAttackedPlayer = 0;
+					timesAttackedPlayer = 0;
+					attackingPlayer = null;
+				}
+			}else{
+				ticksAttackedPlayer++;
 			}
 		}
 	}

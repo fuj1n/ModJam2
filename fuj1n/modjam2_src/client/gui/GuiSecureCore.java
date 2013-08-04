@@ -21,6 +21,7 @@ import fuj1n.modjam2_src.Helper;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPane;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreInput;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreOutput;
+import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreRetaliate;
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 
 public class GuiSecureCore extends GuiContainer {
@@ -88,6 +89,7 @@ public class GuiSecureCore extends GuiContainer {
 		*/
 		panes.add(new ContentPaneCoreInput(this));
 		panes.add(new ContentPaneCoreOutput(this));
+		panes.add(new ContentPaneCoreRetaliate(this));
 	}
 
 	@Override
@@ -101,6 +103,8 @@ public class GuiSecureCore extends GuiContainer {
 				this.currentPane = par1GuiButton.id;
 				break;
 			}
+			
+			return;
 		} else {
 			switch (par1GuiButton.id) {
 			case 0:
@@ -127,6 +131,7 @@ public class GuiSecureCore extends GuiContainer {
 			outputStream.writeInt(z);
 			panes.get(0).addDataToPacket(outputStream);
 			panes.get(1).addDataToPacket(outputStream);
+			panes.get(2).addDataToPacket(outputStream);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

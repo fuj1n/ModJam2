@@ -42,7 +42,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
-		return te.redstoneSignals[par5];
+		return te.redstoneSignalsOut[par5];
 	}
 
 	@Override
@@ -80,6 +80,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 			break;
 		}
 
+		te.setRetaliate(par5EntityPlayer);
 		return false;
 	}
 

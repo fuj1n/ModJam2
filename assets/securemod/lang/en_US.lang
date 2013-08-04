@@ -8,3 +8,6 @@ tile.secureBlock.name=Secure Block
 
 item.securityPass.name=Security Card
 item.securityWrench.name=Security Wrench
+
+death.attack.electrical=%1$s was electrocuted to death
+death.attack.inFire.player=%1$s was electrocuted to death while fighting %2$s

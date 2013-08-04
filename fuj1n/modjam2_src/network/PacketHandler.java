@@ -98,8 +98,21 @@ public class PacketHandler implements IPacketHandler{
 				te.outTime = timeMode;
 				break;
 			}
+			int retMode = inputStream.readInt();
+			switch(retMode){
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				int sideMode = inputStream.readInt();
+				int timeMode = inputStream.readInt();
+				te.retSide = sideMode;
+				te.retTime = timeMode;
+			}
 			te.inputMode = mode;
 			te.outputMode = outputMode;
+			te.retMode = retMode;
 			te.playerName = player.username;
 			
 			PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), world.provider.dimensionId);
