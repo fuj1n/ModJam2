@@ -66,8 +66,8 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 			if (par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityPass.itemID && par5EntityPlayer.getHeldItem().getTagCompound() != null) {
 				if (Integer.toString(par5EntityPlayer.getHeldItem().getTagCompound().getInteger("cardID")).equals(te.passcode)) {
 					te.setOutput();
+					return true;
 				}
-				return true;
 			}
 			break;
 		case 3:
