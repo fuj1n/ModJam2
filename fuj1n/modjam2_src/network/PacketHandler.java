@@ -109,6 +109,7 @@ public class PacketHandler implements IPacketHandler{
 				int timeMode = inputStream.readInt();
 				te.retSide = sideMode;
 				te.retTime = timeMode;
+				break;
 			case 4:
 				String msg = inputStream.readUTF();
 				te.retMessage = msg;

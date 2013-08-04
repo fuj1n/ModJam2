@@ -12,6 +12,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import fuj1n.modjam2_src.block.SecureModBlocks;
+import fuj1n.modjam2_src.client.particle.EntityElectricityFX;
 import fuj1n.modjam2_src.damage.DamageSourceElectricity;
 
 public class TileEntitySecurityCore extends TileEntity {
@@ -107,10 +108,10 @@ public class TileEntitySecurityCore extends TileEntity {
 			if(outSide < redstoneSignalsOut.length){
 				redstoneSignalsOut[outSide] = 15;
 				localTimeOut = outTime * (20 / 2);
+				updateSurroundingBlocks();
 			}
 			break;
 		}
-		updateSurroundingBlocks();
 	}
 	
 	public void setRetaliate(EntityPlayer par1EntityPlayer){
@@ -127,6 +128,7 @@ public class TileEntitySecurityCore extends TileEntity {
 				redstoneSignalsRet[retSide] = 15;
 				localTimeRet = retTime * (20 / 2);
 			}
+			updateSurroundingBlocks();
 			break;
 		case 4:
 			Iterator<EntityPlayer> i1 = worldObj.playerEntities.iterator();
@@ -144,6 +146,7 @@ public class TileEntitySecurityCore extends TileEntity {
 	
 	@Override
 	public void updateEntity(){
+		doParticles();
 		//System.out.println(redstoneSignals[outSide]);
 		if(localTimeOut > 0){
 			localTimeOut--;
@@ -185,6 +188,20 @@ public class TileEntitySecurityCore extends TileEntity {
 			}else{
 				ticksAttackedPlayer++;
 			}
+		}
+	}
+	
+	public void doParticles(){
+		net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+		if(this.attackingPlayer != null){
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(worldObj, this.attackingPlayer.posX + 0.5D, this.attackingPlayer.posY + 0.5D, this.attackingPlayer.posZ + 0.5D, xCoord - this.attackingPlayer.posX, yCoord - this.attackingPlayer.posY, zCoord - this.attackingPlayer.posZ));
 		}
 	}
 	

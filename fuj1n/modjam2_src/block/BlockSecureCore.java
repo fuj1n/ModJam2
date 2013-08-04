@@ -46,7 +46,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
-		return te.redstoneSignalsOut[par5];
+		return te.redstoneSignalsOut[par5] > 0 ? te.redstoneSignalsOut[par5] : te.redstoneSignalsRet[par5];
 	}
 
 	@Override
@@ -175,21 +175,10 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 		return 2;
 	}
 	
-	@SideOnly(Side.CLIENT)
-	@Override
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random){
-		net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
-		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
-		if(te.attackingPlayer != null){
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
-		}
-	}
+//	@SideOnly(Side.CLIENT)
+//	@Override
+//    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random){
+//
+//	}
 	
 }
