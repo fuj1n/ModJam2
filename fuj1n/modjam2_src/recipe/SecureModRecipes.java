@@ -17,9 +17,14 @@ public class SecureModRecipes {
 	}
 	
 	private static void addRegularRecipes(){
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(SecureModBlocks.secureBlock, 4), new Object[]{
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(SecureModBlocks.secureBlock, 4, 0), new Object[]{
 			"ibi", "bsb", "ibi", 'i', Item.ingotIron, 'b', "dyeBlack", 's', Block.stone
 		}));
+		
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(SecureModBlocks.secureBlock, 1, 1), new Object[]{
+			new ItemStack(SecureModBlocks.secureBlock, 1, 0), Item.stick
+		});
 		
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(SecureModBlocks.securityCore, 1), new Object[]{
 			"grg", "lsl", "grg", 'g', Item.ingotGold, 'r', Item.redstone, 'l', "dyeLime", 's', SecureModBlocks.secureBlock

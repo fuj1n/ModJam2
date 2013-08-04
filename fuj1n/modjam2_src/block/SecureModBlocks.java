@@ -3,6 +3,7 @@ package fuj1n.modjam2_src.block;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.registry.GameRegistry;
+import fuj1n.modjam2_src.item.ItemBlockSecureBlock;
 import fuj1n.modjam2_src.lib.ConfigManager;
 
 public class SecureModBlocks {
@@ -19,7 +20,7 @@ public class SecureModBlocks {
 	
 	public static void registerAllBlocks(){
 		GameRegistry.registerBlock(securityCore, "securityCore");
-		GameRegistry.registerBlock(secureBlock, "secureBlock");
+		GameRegistry.registerBlock(secureBlock, ItemBlockSecureBlock.class, "secureBlock");
 //		GameRegistry.registerBlock(secureDoor, ItemDoor.class, "secureDoor");
 	}
 	
