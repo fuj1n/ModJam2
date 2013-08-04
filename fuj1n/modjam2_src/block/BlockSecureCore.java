@@ -16,7 +16,6 @@ import net.minecraftforge.common.ForgeDirection;
 import fuj1n.modjam2_src.SecureMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler.GuiIdReference;
 import fuj1n.modjam2_src.item.SecureModItems;
-import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
 public class BlockSecureCore extends BlockContainer implements ISecure {
@@ -52,10 +51,6 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		if(par5EntityPlayer.getHeldItem() != null && par5EntityPlayer.getHeldItem().itemID == SecureModItems.securityWrench.itemID){
-			return false;
-		}
-		
 		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
 
 		switch (te.inputMode) {
@@ -83,7 +78,14 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 		te.setRetaliate(par5EntityPlayer);
 		return false;
 	}
-
+	
+	@Override
+    public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
+		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
+		
+		te.setRetaliate(par5EntityPlayer);
+	}
+	
 	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		int l = MathHelper.floor_double((double) (par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;

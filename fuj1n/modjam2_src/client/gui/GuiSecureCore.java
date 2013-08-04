@@ -172,6 +172,10 @@ public class GuiSecureCore extends GuiContainer {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
+		if(this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null){
+			this.panes.get(currentPane).keyTyped(par1, par2);
+		}
+		
 		if (par2 == 1) {
 			return;
 		}
@@ -180,9 +184,5 @@ public class GuiSecureCore extends GuiContainer {
 			return;
 		}
 		super.keyTyped(par1, par2);
-		
-		if(this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null){
-			this.panes.get(currentPane).keyTyped(par1, par2);
-		}
 	}
 }

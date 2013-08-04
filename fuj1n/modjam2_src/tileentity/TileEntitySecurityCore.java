@@ -1,5 +1,10 @@
 package fuj1n.modjam2_src.tileentity;
 
+import java.util.Iterator;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -20,6 +25,7 @@ public class TileEntitySecurityCore extends TileEntity {
 	public int retMode = 0;
 	public int retSide = 0;
 	public int retTime = 0;
+	public String retMessage = "";
 	
 	public int localTimeOut = 0;
 	public int localTimeRet = 0;
@@ -51,6 +57,7 @@ public class TileEntitySecurityCore extends TileEntity {
 		for(int i = 0; i < redstoneSignalsRet.length; i++){
 			redstoneSignalsRet[i] = par1NBTTagCompound.getInteger("redstoneRet" + i);
 		}
+		retMessage = par1NBTTagCompound.getString("retMessage");
 	}
 
 	@Override
@@ -77,6 +84,7 @@ public class TileEntitySecurityCore extends TileEntity {
 		for(int i = 0; i < redstoneSignalsRet.length; i++){
 			par1NBTTagCompound.setInteger("redstoneRet" + i, redstoneSignalsRet[i]);
 		}
+		par1NBTTagCompound.setString("retMessage", retMessage);
 	}
 
 	@Override
@@ -118,6 +126,17 @@ public class TileEntitySecurityCore extends TileEntity {
 			if(retSide < redstoneSignalsRet.length){
 				redstoneSignalsRet[retSide] = 15;
 				localTimeRet = retTime * (20 / 2);
+			}
+			break;
+		case 4:
+			Iterator<EntityPlayer> i1 = worldObj.playerEntities.iterator();
+			while(i1.hasNext()){
+				EntityPlayer pl = i1.next();
+				if(pl.username.equals(playerName)){
+					if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
+						pl.addChatMessage(retMessage != null && !retMessage.equals("") ? retMessage.replaceAll("#player", par1EntityPlayer.username) : par1EntityPlayer.username + " is messing with your security systems");
+					}
+				}
 			}
 			break;
 		}
