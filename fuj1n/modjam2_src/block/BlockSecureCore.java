@@ -1,5 +1,7 @@
 package fuj1n.modjam2_src.block;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -13,8 +15,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import fuj1n.modjam2_src.SecureMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler.GuiIdReference;
+import fuj1n.modjam2_src.client.particle.EntityElectricityFX;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
@@ -168,6 +173,23 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public int getMobilityFlag(){
 		return 2;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random){
+		net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
+		if(te.attackingPlayer != null){
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+			mc.effectRenderer.addEffect(new EntityElectricityFX(par1World, te.attackingPlayer.posX, te.attackingPlayer.posY, te.attackingPlayer.posZ, par2 - te.attackingPlayer.posX, par3 - te.attackingPlayer.posY, par4 - te.attackingPlayer.posZ));
+		}
 	}
 	
 }

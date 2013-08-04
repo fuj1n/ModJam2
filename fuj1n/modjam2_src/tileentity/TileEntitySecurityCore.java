@@ -30,7 +30,7 @@ public class TileEntitySecurityCore extends TileEntity {
 	public int localTimeOut = 0;
 	public int localTimeRet = 0;
 	
-	EntityPlayer attackingPlayer = null;
+	public EntityPlayer attackingPlayer = null;
 	int timesAttackedPlayer = 0;
 	int ticksAttackedPlayer = 0;
 	
