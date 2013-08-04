@@ -45,6 +45,7 @@ public class BlockSecure extends BlockContainer implements ISecure {
 
 	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
 		if (par5EntityLivingBase instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par5EntityLivingBase;
 			TileEntitySecureBlock te = (TileEntitySecureBlock)par1World.getBlockTileEntity(par2, par3, par4);
