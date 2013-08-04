@@ -15,13 +15,13 @@ public class SecureModBlocks {
 	public static void addAllBlocks(){
 		securityCore = new BlockSecureCore(ConfigManager.instance.getValues().secureCoreId).setBlockUnbreakable().setCreativeTab(CreativeTabs.tabAllSearch).setUnlocalizedName("securityCore");
 		secureBlock = new BlockSecure(ConfigManager.instance.getValues().secureBlockId).setBlockUnbreakable().setCreativeTab(CreativeTabs.tabAllSearch).setUnlocalizedName("secureBlock");
-//		secureDoor = new BlockSecureDoor(ConfigManager.instance.getValues().secureDoorId).setBlockUnbreakable().setCreativeTab(CreativeTabs.tabAllSearch).setUnlocalizedName("secureDoor");
+		secureDoor = new BlockSecureDoor(ConfigManager.instance.getValues().secureDoorBlockId).setBlockUnbreakable().setCreativeTab(null).setUnlocalizedName("secureDoor");
 	}
 	
 	public static void registerAllBlocks(){
 		GameRegistry.registerBlock(securityCore, "securityCore");
 		GameRegistry.registerBlock(secureBlock, ItemBlockSecureBlock.class, "secureBlock");
-//		GameRegistry.registerBlock(secureDoor, ItemDoor.class, "secureDoor");
+		GameRegistry.registerBlock(secureDoor, "secureDoor");
 	}
 	
 }

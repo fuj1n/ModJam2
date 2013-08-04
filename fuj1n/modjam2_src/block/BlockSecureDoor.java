@@ -1,5 +1,7 @@
 package fuj1n.modjam2_src.block;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -13,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.tileentity.TileEntitySecureBlock;
 
 public class BlockSecureDoor extends BlockDoor implements ITileEntityProvider, ISecure {
@@ -47,6 +49,11 @@ public class BlockSecureDoor extends BlockDoor implements ITileEntityProvider, I
 			TileEntitySecureBlock te = (TileEntitySecureBlock) par1World.getBlockTileEntity(par2, par3, par4);
 			te.playerPlaced = player.username;
 		}
+	}
+
+	@Override
+	public Icon getIcon(int par1, int par2) {
+		return this.field_111043_b[0];
 	}
 
 	@Override
@@ -105,6 +112,16 @@ public class BlockSecureDoor extends BlockDoor implements ITileEntityProvider, I
 		return false;
 	}
 
+	@Override
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		return false;
+	}
+
+	@Override
+	public int idDropped(int par1, Random par2Random, int par3) {
+		return SecureModItems.secureDoor.itemID;
+	}
+	
 	@Override
 	public int getMobilityFlag() {
 		return 2;
