@@ -1,5 +1,6 @@
 package fuj1n.modjam2_src;
 
+import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -10,7 +11,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
 import fuj1n.modjam2_src.block.SecureModBlocks;
+import fuj1n.modjam2_src.client.CreativeTabSecurityMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.lib.ConfigManager;
@@ -29,10 +33,21 @@ public class SecureMod {
 	@Instance("SecureMod")
 	public static SecureMod instance;
 	
+	public static CreativeTabs secureModCreativeTab;
+	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event){
 		proxy.PreInit();
 		new ConfigManager(event.getSuggestedConfigurationFile()).readConfigValues();
+		
+		if(event.getSide() == Side.CLIENT){
+			registerCreativeTab();
+		}
+	}
+	
+	public void registerCreativeTab() {
+		secureModCreativeTab = new CreativeTabSecurityMod("fuj1n.secureMod");
+		LanguageRegistry.instance().addStringLocalization("itemGroup." + secureModCreativeTab.getTabLabel(), "Secure Mod");
 	}
 	
 	@EventHandler
