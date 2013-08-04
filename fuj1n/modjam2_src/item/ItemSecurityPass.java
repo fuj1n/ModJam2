@@ -43,16 +43,19 @@ public class ItemSecurityPass extends Item {
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(par1ItemStack.hasTagCompound() && par1ItemStack.getTagCompound().hasKey("cardID")){
 			if(GuiScreen.isShiftKeyDown()){
-				par3List.add(Integer.toString(par1ItemStack.getTagCompound().getInteger("cardID")));
+				par3List.add("Owner:" + par1ItemStack.getTagCompound().getString("owner"));
+				par3List.add("Location:" + par1ItemStack.getTagCompound().getString("location" +
+						""));
+				par3List.add("ID:" + Integer.toString(par1ItemStack.getTagCompound().getInteger("cardID")));
 			}else{
 				par3List.add("Hold shift for more information");
 			}
 			
-			if(GuiScreen.isCtrlKeyDown()){
-				par3List.add("Dispose in fire");
-			}else{
-				par3List.add("Hold control for disposal instructions");
-			}
+//			if(GuiScreen.isCtrlKeyDown()){
+//				par3List.add("Dispose in fire");
+//			}else{
+//				par3List.add("Hold control for disposal instructions");
+//			}
 		}
 	}
 	

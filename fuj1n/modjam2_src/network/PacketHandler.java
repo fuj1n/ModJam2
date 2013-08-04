@@ -71,6 +71,8 @@ public class PacketHandler implements IPacketHandler{
 				ItemStack item = new ItemStack(SecureModItems.securityPass, 1);
 				NBTTagCompound compound = new NBTTagCompound();
 				compound.setInteger("cardID", cardID);
+				compound.setString("owner", player.username);
+				compound.setString("location", "x:" + x + ", y:" + y + ", z:" + z);
 				item.setTagCompound(compound);
 				
 	            float f = 0.7F;
