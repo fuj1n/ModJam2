@@ -86,6 +86,9 @@ public class GuiSecureCorePasscode extends GuiContainer{
 			if(this.passfield.getText().equals(te.passcode)){
 				te.setOutput();
 				dispatchOpenPacket();
+			}else{
+				te.setRetaliate(thePlayer);
+				dispatchRetaliatePacket();
 			}
 			thePlayer.closeScreen();
 			break;
@@ -94,6 +97,28 @@ public class GuiSecureCorePasscode extends GuiContainer{
 	
 	public void dispatchOpenPacket(){
 		int packetId = 1;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(packetId);
+			outputStream.writeInt(x);
+			outputStream.writeInt(y);
+			outputStream.writeInt(z);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "fuj1nSecure";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			PacketDispatcher.sendPacketToServer(packet);
+		}
+	}
+	
+	public void dispatchRetaliatePacket(){
+		int packetId = 2;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		try {
