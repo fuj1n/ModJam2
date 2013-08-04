@@ -5,20 +5,20 @@ import java.io.IOException;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import fuj1n.modjam2_src.client.gui.GuiButtonDark;
+import fuj1n.modjam2_src.client.gui.GuiPassField;
 
 public class ContentPaneCoreInput extends ContentPane {
 
 	public int mode = 1;
 	
-	public GuiTextField passcode = new GuiTextField(mc.fontRenderer, parent.width / 2 - 150, parent.height / 2 - 41, 100, 10);
+	public GuiPassField passcode = new GuiPassField(mc.fontRenderer, parent.width / 2 - 150, parent.height / 2 - 41, 100, 10);
 	
 	public ContentPaneCoreInput(GuiContainer paneParent) {
 		super(paneParent);
 		passcode.setFocused(true);
-		passcode.setMaxStringLength(15);
+		passcode.setMaxStringLength(35);
 	}
 
 	@Override

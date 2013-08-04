@@ -16,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
-
 import fuj1n.modjam2_src.inventory.ContainerDummy;
 import fuj1n.modjam2_src.tileentity.TileEntitySecurityCore;
 
@@ -24,7 +23,7 @@ public class GuiSecureCorePasscode extends GuiContainer{
 
 	private ResourceLocation background = new ResourceLocation("securemod:textures/gui/security_core_passcode.png");
 	
-	public GuiTextField passfield;
+	public GuiPassField passfield;
 	
 	String pass = "";
 	
@@ -43,8 +42,8 @@ public class GuiSecureCorePasscode extends GuiContainer{
 	@Override
 	public void initGui(){
 		super.initGui();
-		passfield = new GuiTextField(fontRenderer, width / 2 - 170, height / 2 - 100, 100, 10);
-		passfield.setMaxStringLength(15);
+		passfield = new GuiPassField(fontRenderer, width / 2 - 170, height / 2 - 100, 100, 10);
+		passfield.setMaxStringLength(35);
 		passfield.setFocused(true);
 		passfield.setCanLoseFocus(false);
 		passfield.setText(pass);

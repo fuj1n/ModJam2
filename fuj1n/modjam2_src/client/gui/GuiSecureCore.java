@@ -68,6 +68,9 @@ public class GuiSecureCore extends GuiContainer {
 		l.clear();
 		l.add("Output");
 		buttons.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+		l.clear();
+		l.add("Retaliation");
+		buttons.add(new GuiTab(2, this.width / 2 + 45, this.height / 2 - 85, "Ret", Helper.copyList(l), "Retaliation", this));
 
 		panes.add(new ContentPaneCoreInput(this));
 		panes.add(new ContentPaneCoreOutput(this));
