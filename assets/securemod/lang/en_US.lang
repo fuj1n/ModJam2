@@ -12,5 +12,7 @@ item.securityPass.name=Security Card
 item.securityWrench.name=Security Wrench
 item.secureDoor.name=Secure Door
 
+itemGroup.fuj1n.secureMod=Secure Mod
+
 death.attack.electrical=%1$s was electrocuted to death
 death.attack.inFire.player=%1$s was electrocuted to death while fighting %2$s

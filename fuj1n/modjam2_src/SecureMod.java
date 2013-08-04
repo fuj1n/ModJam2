@@ -11,7 +11,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.client.CreativeTabSecurityMod;
@@ -47,7 +46,7 @@ public class SecureMod {
 	
 	public void registerCreativeTab() {
 		secureModCreativeTab = new CreativeTabSecurityMod("fuj1n.secureMod");
-		LanguageRegistry.instance().addStringLocalization("itemGroup." + secureModCreativeTab.getTabLabel(), "Secure Mod");
+//		LanguageRegistry.instance().addStringLocalization("itemGroup." + secureModCreativeTab.getTabLabel(), "Secure Mod");
 	}
 	
 	@EventHandler
