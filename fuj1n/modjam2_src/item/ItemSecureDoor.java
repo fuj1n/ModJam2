@@ -37,7 +37,7 @@ public class ItemSecureDoor extends Item {
 					return false;
 				} else {
 					int i1 = MathHelper.floor_double((double) ((par2EntityPlayer.rotationYaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
-					placeDoorBlock(par3World, par4, par5, par6, i1, block);
+					placeDoorBlock(par3World, par4, par5, par6, i1, block, par2EntityPlayer, par1ItemStack);
 					--par1ItemStack.stackSize;
 					return true;
 				}
@@ -47,7 +47,7 @@ public class ItemSecureDoor extends Item {
 		}
 	}
 
-	public static void placeDoorBlock(World par0World, int par1, int par2, int par3, int par4, Block par5Block) {
+	public static void placeDoorBlock(World par0World, int par1, int par2, int par3, int par4, Block par5Block, EntityPlayer par6EntityPlayer, ItemStack par7ItemStack) {
 		byte b0 = 0;
 		byte b1 = 0;
 
@@ -83,6 +83,11 @@ public class ItemSecureDoor extends Item {
 		par0World.setBlock(par1, par2 + 1, par3, par5Block.blockID, 8 | (flag2 ? 1 : 0), 2);
 		par0World.notifyBlocksOfNeighborChange(par1, par2, par3, par5Block.blockID);
 		par0World.notifyBlocksOfNeighborChange(par1, par2 + 1, par3, par5Block.blockID);
+		
+		par0World.setBlockTileEntity(par1, par2, par3, par5Block.createTileEntity(par0World, par4));
+		par0World.setBlockTileEntity(par1, par2 + 1, par3, par5Block.createTileEntity(par0World, 8 | (flag2 ? 1 : 0)));
+		par5Block.onBlockPlacedBy(par0World, par1, par2, par3, par6EntityPlayer, par7ItemStack);
+		par5Block.onBlockPlacedBy(par0World, par1, par2 + 1, par3, par6EntityPlayer, par7ItemStack);
 	}
 	
 	@Override

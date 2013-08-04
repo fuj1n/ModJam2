@@ -35,7 +35,7 @@ public class BlockSecureDoor extends BlockDoor implements ITileEntityProvider, I
 	@Override
 	public boolean canBreak(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
 		TileEntitySecureBlock te = (TileEntitySecureBlock) par1World.getBlockTileEntity(par2, par3, par4);
-		if (par5EntityPlayer.username.equals(te.playerPlaced) || te.playerPlaced == null) {
+		if (par5EntityPlayer.username.equals(te.playerPlaced) || te.playerPlaced == null || te.playerPlaced.equals("")) {
 			return true;
 		}
 		return false;

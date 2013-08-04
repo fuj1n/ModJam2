@@ -159,7 +159,7 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	@Override
 	public boolean canBreak(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1World.getBlockTileEntity(par2, par3, par4);
-		if(par5EntityPlayer.username.equals(te.playerName) || te.playerName == null){
+		if(par5EntityPlayer.username.equals(te.playerName) || te.playerName == null || te.playerName.equals("")){
 			return true;
 		}
 		return false;
