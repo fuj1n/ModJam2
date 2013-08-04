@@ -119,7 +119,7 @@ public class BlockSecureDoor extends BlockDoor implements ITileEntityProvider, I
 
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
-		return SecureModItems.secureDoor.itemID;
+		return (par1 & 8) != 0 ? 0 : SecureModItems.secureDoor.itemID;
 	}
 	
 	@Override
