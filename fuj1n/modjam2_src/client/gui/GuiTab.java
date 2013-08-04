@@ -24,6 +24,7 @@ public class GuiTab extends GuiButton {
 	String tabTitle;
 	List stringList;
 	GuiContainer parent;
+	int lastX, lastY;
 	
     protected static final ResourceLocation background = new ResourceLocation("securemod:textures/gui/button_tab.png");
 	
@@ -38,6 +39,8 @@ public class GuiTab extends GuiButton {
 
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if (this.drawButton) {
+            this.lastX = par2;
+            this.lastY = par3;
 			FontRenderer fontrenderer = par1Minecraft.fontRenderer;
 			par1Minecraft.func_110434_K().func_110577_a(background);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -50,12 +53,16 @@ public class GuiTab extends GuiButton {
 			int l = 0xAAAAAA;
 			
             this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
-			if (field_82253_i) {
-				drawItemStackTooltip(Helper.copyList(stringList), par2, par3);
-			}
 		}
 	}
 
+	public void passTooltip(){
+		this.field_82253_i = lastX >= this.xPosition && lastY >= this.yPosition && lastX < this.xPosition + this.width && lastY < this.yPosition + this.height;
+		if (field_82253_i && this.drawButton) {
+			drawItemStackTooltip(Helper.copyList(stringList), lastX - 125, lastY - 10);
+		}
+	}
+	
 	protected void drawItemStackTooltip(List list, int par2, int par3) {
 		for (int k = 0; k < list.size(); ++k) {
 			if (k == 0) {

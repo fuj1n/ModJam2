@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
-
 import fuj1n.modjam2_src.Helper;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPane;
 import fuj1n.modjam2_src.client.gui.contentpane.ContentPaneCoreInput;
@@ -50,10 +49,17 @@ public class GuiSecureCore extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int f, int i) {
-		fontRenderer.drawString("Security Core           Setup", 15, 5, 0xAAAAAA);
-		this.drawCenteredString(fontRenderer, tabName, xSize / 2, 17, 0xAAAAAA);
+		fontRenderer.drawString("Security Core", 8, 5, 0xAAAAAA);
+		this.drawCenteredString(fontRenderer, tabName, xSize / 2 + 50, 5, 0xAAAAAA);
 		if (this.currentPane >= 0 && this.currentPane < this.panes.size() && this.panes.get(currentPane) != null) {
 			this.panes.get(currentPane).drawContentForeground();
+		}
+		
+		for(int index = 0; index < buttons.size(); index++){
+			if(buttons.get(index) instanceof GuiTab){
+				GuiTab tab = (GuiTab)buttons.get(index);
+				tab.passTooltip();
+			}
 		}
 	}
 
@@ -64,14 +70,22 @@ public class GuiSecureCore extends GuiContainer {
 		buttons.add(new GuiButtonDark(0, this.width / 2 - 50, this.height / 2 + 80, 100, 20, "Done"));
 		List l = new ArrayList<String>();
 		l.add("Input");
-		buttons.add(new GuiTab(0, this.width / 2 - 70, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
+		buttons.add(new GuiTab(0, this.width / 2 - 45, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
 		l.clear();
 		l.add("Output");
-		buttons.add(new GuiTab(1, this.width / 2 + 40, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+		buttons.add(new GuiTab(1, this.width / 2 - 15, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
 		l.clear();
 		l.add("Retaliation");
-		buttons.add(new GuiTab(2, this.width / 2 + 45, this.height / 2 - 85, "Ret", Helper.copyList(l), "Retaliation", this));
-
+		buttons.add(new GuiTab(2, this.width / 2 + 15, this.height / 2 - 85, "Ret", Helper.copyList(l), "Retaliation", this));
+		/*
+		buttons.add(new GuiTab(0, this.width / 2 - 114, this.height / 2 - 85, "In", Helper.copyList(l), "Input", this));
+		l.clear();
+		l.add("Output");
+		buttons.add(new GuiTab(1, this.width / 2 + 87, this.height / 2 - 85, "Out", Helper.copyList(l), "Output", this));
+		l.clear();
+		l.add("Retaliation");
+		buttons.add(new GuiTab(2, this.width / 2 + 87, this.height / 2 - 55, "Ret", Helper.copyList(l), "Retaliation", this));
+		*/
 		panes.add(new ContentPaneCoreInput(this));
 		panes.add(new ContentPaneCoreOutput(this));
 	}

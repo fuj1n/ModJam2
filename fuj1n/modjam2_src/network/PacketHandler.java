@@ -72,7 +72,7 @@ public class PacketHandler implements IPacketHandler{
 				NBTTagCompound compound = new NBTTagCompound();
 				compound.setInteger("cardID", cardID);
 				compound.setString("owner", player.username);
-				compound.setString("location", "x:" + x + ", y:" + y + ", z:" + z);
+				compound.setString("location", "x: " + x + ", y: " + y + ", z: " + z);
 				item.setTagCompound(compound);
 				
 	            float f = 0.7F;
