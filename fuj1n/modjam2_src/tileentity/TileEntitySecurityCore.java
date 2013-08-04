@@ -212,14 +212,13 @@ public class TileEntitySecurityCore extends TileEntity {
 	}
 	
 	public void updateSurroundingBlocks(){
-//		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-//		worldObj.markBlockForUpdate(xCoord + 1, yCoord, zCoord);
-//		worldObj.markBlockForUpdate(xCoord - 1, yCoord, zCoord);
-//		worldObj.markBlockForUpdate(xCoord, yCoord + 1, zCoord);
-//		worldObj.markBlockForUpdate(xCoord, yCoord - 1, zCoord);
-//		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord + 1);
-//		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord - 1);
 		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord - 1, yCoord, zCoord, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord + 1, yCoord, zCoord, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord + 1, zCoord, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord - 1, SecureModBlocks.securityCore.blockID);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord + 1, SecureModBlocks.securityCore.blockID);
 	}
 	
 }

@@ -48,6 +48,11 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 		TileEntitySecurityCore te = (TileEntitySecurityCore)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
 		return te.redstoneSignalsOut[par5] > 0 ? te.redstoneSignalsOut[par5] : te.redstoneSignalsRet[par5];
 	}
+	
+	@Override
+    public int isProvidingStrongPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5){
+        return this.isProvidingWeakPower(par1IBlockAccess, par2, par3, par4, par5);
+    }
 
 	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
