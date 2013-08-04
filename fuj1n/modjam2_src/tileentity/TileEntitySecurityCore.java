@@ -174,6 +174,12 @@ public class TileEntitySecurityCore extends TileEntity {
 			}
 		}
 		
+		if(attackingPlayer != null && attackingPlayer.isDead){
+			ticksAttackedPlayer = 0;
+			timesAttackedPlayer = 0;
+			attackingPlayer = null;
+		}
+		
 		if(attackingPlayer != null){
 			if(ticksAttackedPlayer >= 5){
 				ticksAttackedPlayer = 0;

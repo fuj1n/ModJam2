@@ -10,6 +10,7 @@ public class DamageSourceElectricity extends DamageSource {
 	public DamageSourceElectricity() {
 		super("electrical");
 		this.setDamageBypassesArmor();
+		this.setDamageAllowedInCreativeMode();
 	}
 
 	@Override
