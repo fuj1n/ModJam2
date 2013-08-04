@@ -1,7 +1,9 @@
 ModJam2
 =======
 
-The repo for the second Modjam, this repo will come to use on 02 Aug 2013
+This is the repo for the mod I am making for ModJam #2, currently the mod has the following features:
+- A block that can only be broken by the player who placed it
+- A block that manages the security in four forms, passcode, keycard, retina and redstone(not very secure but better red than dead)
 
 Plans for bonus points:
 =======
