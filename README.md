@@ -1,4 +1,4 @@
-ModJam2
+ModJam #2
 =======
 
 This is the repo for the mod I am making for ModJam #2, currently the mod has the following features:
