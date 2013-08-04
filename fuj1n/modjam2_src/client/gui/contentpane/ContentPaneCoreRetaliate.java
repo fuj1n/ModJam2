@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraftforge.common.ForgeDirection;
+import fuj1n.modjam2_src.client.gui.GuiTextFieldSection;
 
 public class ContentPaneCoreRetaliate extends ContentPane{
 
@@ -16,7 +17,7 @@ public class ContentPaneCoreRetaliate extends ContentPane{
 	int timeMode = 1;
 	ForgeDirection[] sides = ForgeDirection.VALID_DIRECTIONS;
 	
-	GuiTextField textField = new GuiTextField(mc.fontRenderer, parent.width / 2 - 186, parent.height / 2, 125, 10);
+	GuiTextFieldSection textField = new GuiTextFieldSection(mc.fontRenderer, parent.width / 2 - 186, parent.height / 2, 125, 10);
 	
 	public ContentPaneCoreRetaliate(GuiContainer paneParent) {
 		super(paneParent);
