@@ -14,6 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
 
 import fuj1n.modjam2_src.Helper;
 
@@ -59,7 +61,7 @@ public class GuiTab extends GuiButton {
 	public void passTooltip(){
 		this.field_82253_i = lastX >= this.xPosition && lastY >= this.yPosition && lastX < this.xPosition + this.width && lastY < this.yPosition + this.height;
 		if (field_82253_i && this.drawButton) {
-			drawItemStackTooltip(Helper.copyList(stringList), lastX - 125, lastY - 10);
+			drawItemStackTooltip(Helper.copyList(stringList), lastX, lastY);
 		}
 	}
 	
@@ -75,6 +77,7 @@ public class GuiTab extends GuiButton {
 	}
 
 	protected void drawHoveringText(List par1List, int par2, int par3, FontRenderer font) {
+		GL11.glPopMatrix();
 		float zl = this.zLevel;
 		if (!par1List.isEmpty()) {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -142,6 +145,7 @@ public class GuiTab extends GuiButton {
 			RenderHelper.enableStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		}
+		GL11.glPushMatrix();
 	}
 
 }

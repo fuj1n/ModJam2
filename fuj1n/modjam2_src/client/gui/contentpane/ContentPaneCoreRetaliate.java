@@ -17,7 +17,7 @@ public class ContentPaneCoreRetaliate extends ContentPane{
 	int timeMode = 1;
 	ForgeDirection[] sides = ForgeDirection.VALID_DIRECTIONS;
 	
-	GuiTextFieldSection textField = new GuiTextFieldSection(mc.fontRenderer, parent.width / 2 - 186, parent.height / 2, 125, 10);
+	GuiTextFieldSection textField = new GuiTextFieldSection(mc.fontRenderer, 25, 125, 125, 10);
 	
 	public ContentPaneCoreRetaliate(GuiContainer paneParent) {
 		super(paneParent);

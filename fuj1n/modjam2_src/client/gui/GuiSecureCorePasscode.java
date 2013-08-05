@@ -36,18 +36,19 @@ public class GuiSecureCorePasscode extends GuiContainer{
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		xSize = 176;
 		ySize = 68;
 	}
 
 	@Override
 	public void initGui(){
 		super.initGui();
-		passfield = new GuiPassField(fontRenderer, width / 2 - 170, height / 2 - 100, 100, 10);
+		passfield = new GuiPassField(fontRenderer, this.xSize / 2 - 50, 20, 100, 10);
 		passfield.setMaxStringLength(35);
 		passfield.setFocused(true);
 		passfield.setCanLoseFocus(false);
 		passfield.setText(pass);
-		buttonList.add(new GuiButton(0, width / 2 - 45, height / 2 + 5, 100, 20, "Done"));
+		buttonList.add(new GuiButton(0, this.width / 2 - 50, height / 2 + 5, 100, 20, "Done"));
 	}
 	
 	@Override

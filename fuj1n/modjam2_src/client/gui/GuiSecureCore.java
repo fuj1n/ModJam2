@@ -56,6 +56,7 @@ public class GuiSecureCore extends GuiContainer {
 			this.panes.get(currentPane).drawContentForeground();
 		}
 		
+		//Note to self: Never render anything after passTooltip as it resets the native translation of the GUI
 		for(int index = 0; index < buttons.size(); index++){
 			if(buttons.get(index) instanceof GuiTab){
 				GuiTab tab = (GuiTab)buttons.get(index);

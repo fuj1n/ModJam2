@@ -13,7 +13,7 @@ public class ContentPaneCoreInput extends ContentPane {
 
 	public int mode = 1;
 	
-	public GuiPassField passcode = new GuiPassField(mc.fontRenderer, parent.width / 2 - 150, parent.height / 2 - 31, 100, 10);
+	public GuiPassField passcode = new GuiPassField(mc.fontRenderer, 65, 89, 100, 10);
 	
 	public ContentPaneCoreInput(GuiContainer paneParent) {
 		super(paneParent);
