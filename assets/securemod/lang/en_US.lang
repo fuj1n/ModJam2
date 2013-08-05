@@ -6,6 +6,7 @@ language.code=en_US
 tile.securityCore.name=Security Core
 tile.secureBlock.0.name=Secure Block
 tile.secureBlock.1.name=De-solidified Secure Block
+tile.secureBlock.2.name=Redstone Secure Block
 tile.secureDoor.name=Secure Door Block
 
 item.securityPass.name=Security Card

@@ -38,6 +38,11 @@ public class BlockSecure extends BlockContainer implements ISecure {
 	}
 
 	@Override
+    public boolean isBlockNormalCube(World world, int x, int y, int z){
+        return (blockMaterial.isOpaque() || world.getBlockMetadata(x, y, z) == 2) && renderAsNormalBlock() && !canProvidePower();
+    }
+	
+	@Override
 	public boolean canBreak(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
 		TileEntitySecureBlock te = (TileEntitySecureBlock) par1World.getBlockTileEntity(par2, par3, par4);
 		if (par5EntityPlayer.username.equals(te.playerPlaced) || te.playerPlaced == null || te.playerPlaced.equals("")) {
@@ -60,6 +65,7 @@ public class BlockSecure extends BlockContainer implements ISecure {
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 0));
 		par3List.add(new ItemStack(par1, 1, 1));
+		par3List.add(new ItemStack(par1, 1, 2));
 	}
 
 	@Override
