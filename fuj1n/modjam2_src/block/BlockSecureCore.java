@@ -91,9 +91,9 @@ public class BlockSecureCore extends BlockContainer implements ISecure {
 	
 	@Override
     public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
-		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
+//		TileEntitySecurityCore te = (TileEntitySecurityCore) par1World.getBlockTileEntity(par2, par3, par4);
 		
-		te.setRetaliate(par5EntityPlayer);
+//		te.setRetaliate(par5EntityPlayer);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package fuj1n.modjam2_src;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -15,6 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import fuj1n.modjam2_src.block.SecureModBlocks;
 import fuj1n.modjam2_src.client.CreativeTabSecurityMod;
 import fuj1n.modjam2_src.client.gui.GuiHandler;
+import fuj1n.modjam2_src.event.InteractEvent;
 import fuj1n.modjam2_src.item.SecureModItems;
 import fuj1n.modjam2_src.lib.ConfigManager;
 import fuj1n.modjam2_src.network.PacketHandler;
@@ -46,7 +48,6 @@ public class SecureMod {
 	
 	public void registerCreativeTab() {
 		secureModCreativeTab = new CreativeTabSecurityMod("fuj1n.secureMod");
-//		LanguageRegistry.instance().addStringLocalization("itemGroup." + secureModCreativeTab.getTabLabel(), "Secure Mod");
 	}
 	
 	@EventHandler
@@ -60,6 +61,7 @@ public class SecureMod {
 		
 //		Creates buggy behavior with block breaking
 //		MinecraftForge.EVENT_BUS.register(new PriorityManager());
+		MinecraftForge.EVENT_BUS.register(new InteractEvent());
 		
 		SecureModItems.addItems();
 		

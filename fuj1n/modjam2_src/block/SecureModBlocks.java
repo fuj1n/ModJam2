@@ -14,9 +14,9 @@ public class SecureModBlocks {
 	public static Block secureDoor;
 	
 	public static void addAllBlocks(){
-		securityCore = new BlockSecureCore(ConfigManager.instance.getValues().secureCoreId).setBlockUnbreakable().setResistance(6000000.0F).setCreativeTab(SecureMod.secureModCreativeTab).setUnlocalizedName("securityCore");
-		secureBlock = new BlockSecure(ConfigManager.instance.getValues().secureBlockId).setBlockUnbreakable().setResistance(6000000.0F).setCreativeTab(SecureMod.secureModCreativeTab).setUnlocalizedName("secureBlock");
-		secureDoor = new BlockSecureDoor(ConfigManager.instance.getValues().secureDoorBlockId).setBlockUnbreakable().setResistance(6000000.0F).setCreativeTab(null).setUnlocalizedName("secureDoor");
+		securityCore = new BlockSecureCore(ConfigManager.instance.getValues().secureCoreId).setHardness(0.5F).setResistance(6000000.0F).setCreativeTab(SecureMod.secureModCreativeTab).setUnlocalizedName("securityCore");
+		secureBlock = new BlockSecure(ConfigManager.instance.getValues().secureBlockId).setHardness(0.5F).setResistance(6000000.0F).setCreativeTab(SecureMod.secureModCreativeTab).setUnlocalizedName("secureBlock");
+		secureDoor = new BlockSecureDoor(ConfigManager.instance.getValues().secureDoorBlockId).setHardness(0.5F).setResistance(6000000.0F).setCreativeTab(null).setUnlocalizedName("secureDoor");
 	}
 	
 	public static void registerAllBlocks(){
