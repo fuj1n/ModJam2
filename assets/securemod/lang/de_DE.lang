@@ -1,0 +1,19 @@
+
+language.name=German
+language.region=DE
+language.code=de_DE
+
+tile.securityCore.name=Sicherheitskern
+tile.secureBlock.0.name=Sicherer Block
+tile.secureBlock.1.name=Enfestigter Sicherer Block
+tile.secureBlock.2.name=Sicherer Redstone-Block
+tile.secureDoor.name=Sicherer Tür-Block
+
+item.securityPass.name=Sicherheitskarte
+item.securityWrench.name=Sicherheitsschraubenschlüssel
+item.secureDoor.name=Sichere Tür
+
+itemGroup.fuj1n.secureMod=Secure Mod
+
+death.attack.electrical=%1$s wurde durch Stromschläge getötet
+death.attack.inFire.player=%1$s wurde durch Stromschläge getötet, während er %2$s bekämpfte
